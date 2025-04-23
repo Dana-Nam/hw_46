@@ -30,25 +30,32 @@ class _ActivityScreenState extends State<ActivityScreen> {
       body: Padding(
         padding: EdgeInsets.all(24),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            DropdownButtonFormField<double>(
-              value: selectedActivity,
-              items: activityLevels.map<DropdownMenuItem<double>>((e) {
-                return DropdownMenuItem<double>(
-                  value: e['value'],
+            Text('Выберите уровень активности', style: TextStyle(fontSize: 18)),
+            SizedBox(height: 16),
+            ...activityLevels.map((e) {
+              final isSelected = selectedActivity == e['value'];
+              return Padding(
+                padding: EdgeInsets.symmetric(vertical: 6),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: isSelected
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.secondaryContainer,
+                    foregroundColor: isSelected
+                        ? Colors.white
+                        : Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      selectedActivity = e['value'];
+                    });
+                  },
                   child: Text(e['label']),
-                );
-              }).toList(),
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() {
-                    selectedActivity = value;
-                  });
-                }
-              },
-              decoration:
-                  InputDecoration(labelText: 'Выберите уровень активности'),
-            ),
+                ),
+              );
+            }).toList(),
             Spacer(),
             ElevatedButton(
               onPressed: () {
