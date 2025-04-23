@@ -5,6 +5,7 @@ import 'screens/input_screen.dart';
 import 'screens/activity_screen.dart';
 import 'screens/goal_screen.dart';
 import 'screens/result_screen.dart';
+import 'screens/not_found_screen.dart';
 
 void main() {
   runApp(CalorieApp());
@@ -15,7 +16,7 @@ class CalorieApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue)),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlueAccent)),
       initialRoute: AppRoutes.welcome,
       routes: {
         AppRoutes.welcome: (ctx) => WelcomeScreen(),
@@ -24,6 +25,8 @@ class CalorieApp extends StatelessWidget {
         AppRoutes.goal: (ctx) => GoalScreen(),
         AppRoutes.result: (ctx) => ResultScreen(),
       },
+      onUnknownRoute: (settings) =>
+          MaterialPageRoute(builder: (_) => NotFoundScreen()),
     );
   }
 }
